@@ -8,3 +8,12 @@ repository = "https://github.com/hey-jj/json-schema-traverse"
 readme = "README.md"
 
 [dependencies]
+# preserve_order keeps object keys in document order so callbacks fire in the
+# same order as the source schema. The traversal contract depends on it.
+serde_json = { version = "1", features = ["preserve_order"] }
+
+[dev-dependencies]
+# Readable diffs when a golden call sequence does not match.
+pretty_assertions = "1"
+# Property tests for pointer soundness, pre/post symmetry, and escaping.
+proptest = "1"
