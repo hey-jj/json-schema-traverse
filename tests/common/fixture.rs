@@ -12,7 +12,7 @@
 #![allow(clippy::disallowed_names)]
 
 use super::{Record, RecordKeyIndex};
-use serde_json::{json, Map, Value};
+use serde_json::{json, Value};
 
 /// Build the uniform leaf subschema used under each keyword.
 ///
@@ -358,10 +358,4 @@ pub fn schema_from_file() -> Value {
 pub fn expected_from_file() -> Vec<Record> {
     let raw = include_str!("../fixtures/schema.expected.json");
     serde_json::from_str(raw).expect("schema.expected.json parses")
-}
-
-/// Helper for callers that need an empty object literal.
-#[allow(dead_code)]
-pub fn empty_object() -> Value {
-    Value::Object(Map::new())
 }
