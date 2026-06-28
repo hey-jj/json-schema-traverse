@@ -13,6 +13,8 @@ readme = "README.md"
 serde_json = { version = "1", features = ["preserve_order"] }
 
 [dev-dependencies]
+# Deserialize golden call records from the JSON fixtures.
+serde = { version = "1", features = ["derive"] }
 # Readable diffs when a golden call sequence does not match.
 pretty_assertions = "1"
 # Property tests for pointer soundness, pre/post symmetry, and escaping.

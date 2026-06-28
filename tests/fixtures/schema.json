@@ -1,0 +1,464 @@
+{
+  "additionalItems": {
+    "properties": {
+      "foo_additionalItems": {
+        "title": "foo"
+      },
+      "bar_additionalItems": {
+        "title": "bar"
+      }
+    },
+    "additionalProperties": false,
+    "additionalItems": false,
+    "anyOf": [
+      {
+        "format": "email"
+      },
+      {
+        "format": "hostname"
+      }
+    ]
+  },
+  "items": {
+    "properties": {
+      "foo_items": {
+        "title": "foo"
+      },
+      "bar_items": {
+        "title": "bar"
+      }
+    },
+    "additionalProperties": false,
+    "additionalItems": false,
+    "anyOf": [
+      {
+        "format": "email"
+      },
+      {
+        "format": "hostname"
+      }
+    ]
+  },
+  "contains": {
+    "properties": {
+      "foo_contains": {
+        "title": "foo"
+      },
+      "bar_contains": {
+        "title": "bar"
+      }
+    },
+    "additionalProperties": false,
+    "additionalItems": false,
+    "anyOf": [
+      {
+        "format": "email"
+      },
+      {
+        "format": "hostname"
+      }
+    ]
+  },
+  "additionalProperties": {
+    "properties": {
+      "foo_additionalProperties": {
+        "title": "foo"
+      },
+      "bar_additionalProperties": {
+        "title": "bar"
+      }
+    },
+    "additionalProperties": false,
+    "additionalItems": false,
+    "anyOf": [
+      {
+        "format": "email"
+      },
+      {
+        "format": "hostname"
+      }
+    ]
+  },
+  "propertyNames": {
+    "properties": {
+      "foo_propertyNames": {
+        "title": "foo"
+      },
+      "bar_propertyNames": {
+        "title": "bar"
+      }
+    },
+    "additionalProperties": false,
+    "additionalItems": false,
+    "anyOf": [
+      {
+        "format": "email"
+      },
+      {
+        "format": "hostname"
+      }
+    ]
+  },
+  "not": {
+    "properties": {
+      "foo_not": {
+        "title": "foo"
+      },
+      "bar_not": {
+        "title": "bar"
+      }
+    },
+    "additionalProperties": false,
+    "additionalItems": false,
+    "anyOf": [
+      {
+        "format": "email"
+      },
+      {
+        "format": "hostname"
+      }
+    ]
+  },
+  "allOf": [
+    {
+      "properties": {
+        "foo_allOf_0": {
+          "title": "foo"
+        },
+        "bar_allOf_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    {
+      "properties": {
+        "foo_allOf_1": {
+          "title": "foo"
+        },
+        "bar_allOf_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    {
+      "items": [
+        {
+          "properties": {
+            "foo_items_0": {
+              "title": "foo"
+            },
+            "bar_items_0": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        {
+          "properties": {
+            "foo_items_1": {
+              "title": "foo"
+            },
+            "bar_items_1": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "anyOf": [
+    {
+      "properties": {
+        "foo_anyOf_0": {
+          "title": "foo"
+        },
+        "bar_anyOf_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    {
+      "properties": {
+        "foo_anyOf_1": {
+          "title": "foo"
+        },
+        "bar_anyOf_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    }
+  ],
+  "oneOf": [
+    {
+      "properties": {
+        "foo_oneOf_0": {
+          "title": "foo"
+        },
+        "bar_oneOf_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    {
+      "properties": {
+        "foo_oneOf_1": {
+          "title": "foo"
+        },
+        "bar_oneOf_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "foo": {
+      "properties": {
+        "foo_definitions_foo": {
+          "title": "foo"
+        },
+        "bar_definitions_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "bar": {
+      "properties": {
+        "foo_definitions_bar": {
+          "title": "foo"
+        },
+        "bar_definitions_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    }
+  },
+  "properties": {
+    "foo": {
+      "properties": {
+        "foo_properties_foo": {
+          "title": "foo"
+        },
+        "bar_properties_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "bar": {
+      "properties": {
+        "foo_properties_bar": {
+          "title": "foo"
+        },
+        "bar_properties_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    }
+  },
+  "patternProperties": {
+    "foo": {
+      "properties": {
+        "foo_patternProperties_foo": {
+          "title": "foo"
+        },
+        "bar_patternProperties_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "bar": {
+      "properties": {
+        "foo_patternProperties_bar": {
+          "title": "foo"
+        },
+        "bar_patternProperties_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "foo": {
+      "properties": {
+        "foo_dependencies_foo": {
+          "title": "foo"
+        },
+        "bar_dependencies_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "bar": {
+      "properties": {
+        "foo_dependencies_bar": {
+          "title": "foo"
+        },
+        "bar_dependencies_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    }
+  },
+  "required": [
+    "foo",
+    "bar"
+  ]
+}

@@ -1,0 +1,2096 @@
+[
+  {
+    "schema": {
+      "additionalItems": {
+        "properties": {
+          "foo_additionalItems": {
+            "title": "foo"
+          },
+          "bar_additionalItems": {
+            "title": "bar"
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false,
+        "anyOf": [
+          {
+            "format": "email"
+          },
+          {
+            "format": "hostname"
+          }
+        ]
+      },
+      "items": {
+        "properties": {
+          "foo_items": {
+            "title": "foo"
+          },
+          "bar_items": {
+            "title": "bar"
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false,
+        "anyOf": [
+          {
+            "format": "email"
+          },
+          {
+            "format": "hostname"
+          }
+        ]
+      },
+      "contains": {
+        "properties": {
+          "foo_contains": {
+            "title": "foo"
+          },
+          "bar_contains": {
+            "title": "bar"
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false,
+        "anyOf": [
+          {
+            "format": "email"
+          },
+          {
+            "format": "hostname"
+          }
+        ]
+      },
+      "additionalProperties": {
+        "properties": {
+          "foo_additionalProperties": {
+            "title": "foo"
+          },
+          "bar_additionalProperties": {
+            "title": "bar"
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false,
+        "anyOf": [
+          {
+            "format": "email"
+          },
+          {
+            "format": "hostname"
+          }
+        ]
+      },
+      "propertyNames": {
+        "properties": {
+          "foo_propertyNames": {
+            "title": "foo"
+          },
+          "bar_propertyNames": {
+            "title": "bar"
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false,
+        "anyOf": [
+          {
+            "format": "email"
+          },
+          {
+            "format": "hostname"
+          }
+        ]
+      },
+      "not": {
+        "properties": {
+          "foo_not": {
+            "title": "foo"
+          },
+          "bar_not": {
+            "title": "bar"
+          }
+        },
+        "additionalProperties": false,
+        "additionalItems": false,
+        "anyOf": [
+          {
+            "format": "email"
+          },
+          {
+            "format": "hostname"
+          }
+        ]
+      },
+      "allOf": [
+        {
+          "properties": {
+            "foo_allOf_0": {
+              "title": "foo"
+            },
+            "bar_allOf_0": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        {
+          "properties": {
+            "foo_allOf_1": {
+              "title": "foo"
+            },
+            "bar_allOf_1": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "properties": {
+                "foo_items_0": {
+                  "title": "foo"
+                },
+                "bar_items_0": {
+                  "title": "bar"
+                }
+              },
+              "additionalProperties": false,
+              "additionalItems": false,
+              "anyOf": [
+                {
+                  "format": "email"
+                },
+                {
+                  "format": "hostname"
+                }
+              ]
+            },
+            {
+              "properties": {
+                "foo_items_1": {
+                  "title": "foo"
+                },
+                "bar_items_1": {
+                  "title": "bar"
+                }
+              },
+              "additionalProperties": false,
+              "additionalItems": false,
+              "anyOf": [
+                {
+                  "format": "email"
+                },
+                {
+                  "format": "hostname"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "anyOf": [
+        {
+          "properties": {
+            "foo_anyOf_0": {
+              "title": "foo"
+            },
+            "bar_anyOf_0": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        {
+          "properties": {
+            "foo_anyOf_1": {
+              "title": "foo"
+            },
+            "bar_anyOf_1": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "foo_oneOf_0": {
+              "title": "foo"
+            },
+            "bar_oneOf_0": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        {
+          "properties": {
+            "foo_oneOf_1": {
+              "title": "foo"
+            },
+            "bar_oneOf_1": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      ],
+      "definitions": {
+        "foo": {
+          "properties": {
+            "foo_definitions_foo": {
+              "title": "foo"
+            },
+            "bar_definitions_foo": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        "bar": {
+          "properties": {
+            "foo_definitions_bar": {
+              "title": "foo"
+            },
+            "bar_definitions_bar": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      },
+      "properties": {
+        "foo": {
+          "properties": {
+            "foo_properties_foo": {
+              "title": "foo"
+            },
+            "bar_properties_foo": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        "bar": {
+          "properties": {
+            "foo_properties_bar": {
+              "title": "foo"
+            },
+            "bar_properties_bar": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      },
+      "patternProperties": {
+        "foo": {
+          "properties": {
+            "foo_patternProperties_foo": {
+              "title": "foo"
+            },
+            "bar_patternProperties_foo": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        "bar": {
+          "properties": {
+            "foo_patternProperties_bar": {
+              "title": "foo"
+            },
+            "bar_patternProperties_bar": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      },
+      "dependencies": {
+        "foo": {
+          "properties": {
+            "foo_dependencies_foo": {
+              "title": "foo"
+            },
+            "bar_dependencies_foo": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        "bar": {
+          "properties": {
+            "foo_dependencies_bar": {
+              "title": "foo"
+            },
+            "bar_dependencies_bar": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      },
+      "required": [
+        "foo",
+        "bar"
+      ]
+    },
+    "json_ptr": "",
+    "parent_json_ptr": null,
+    "parent_keyword": null,
+    "key_index": null
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_additionalItems": {
+          "title": "foo"
+        },
+        "bar_additionalItems": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/additionalItems",
+    "parent_json_ptr": "",
+    "parent_keyword": "additionalItems",
+    "key_index": null
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/additionalItems/properties/foo_additionalItems",
+    "parent_json_ptr": "/additionalItems",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_additionalItems"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/additionalItems/properties/bar_additionalItems",
+    "parent_json_ptr": "/additionalItems",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_additionalItems"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/additionalItems/anyOf/0",
+    "parent_json_ptr": "/additionalItems",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/additionalItems/anyOf/1",
+    "parent_json_ptr": "/additionalItems",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_items": {
+          "title": "foo"
+        },
+        "bar_items": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/items",
+    "parent_json_ptr": "",
+    "parent_keyword": "items",
+    "key_index": null
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/items/properties/foo_items",
+    "parent_json_ptr": "/items",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_items"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/items/properties/bar_items",
+    "parent_json_ptr": "/items",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_items"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/items/anyOf/0",
+    "parent_json_ptr": "/items",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/items/anyOf/1",
+    "parent_json_ptr": "/items",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_contains": {
+          "title": "foo"
+        },
+        "bar_contains": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/contains",
+    "parent_json_ptr": "",
+    "parent_keyword": "contains",
+    "key_index": null
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/contains/properties/foo_contains",
+    "parent_json_ptr": "/contains",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_contains"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/contains/properties/bar_contains",
+    "parent_json_ptr": "/contains",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_contains"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/contains/anyOf/0",
+    "parent_json_ptr": "/contains",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/contains/anyOf/1",
+    "parent_json_ptr": "/contains",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_additionalProperties": {
+          "title": "foo"
+        },
+        "bar_additionalProperties": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/additionalProperties",
+    "parent_json_ptr": "",
+    "parent_keyword": "additionalProperties",
+    "key_index": null
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/additionalProperties/properties/foo_additionalProperties",
+    "parent_json_ptr": "/additionalProperties",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_additionalProperties"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/additionalProperties/properties/bar_additionalProperties",
+    "parent_json_ptr": "/additionalProperties",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_additionalProperties"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/additionalProperties/anyOf/0",
+    "parent_json_ptr": "/additionalProperties",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/additionalProperties/anyOf/1",
+    "parent_json_ptr": "/additionalProperties",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_propertyNames": {
+          "title": "foo"
+        },
+        "bar_propertyNames": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/propertyNames",
+    "parent_json_ptr": "",
+    "parent_keyword": "propertyNames",
+    "key_index": null
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/propertyNames/properties/foo_propertyNames",
+    "parent_json_ptr": "/propertyNames",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_propertyNames"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/propertyNames/properties/bar_propertyNames",
+    "parent_json_ptr": "/propertyNames",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_propertyNames"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/propertyNames/anyOf/0",
+    "parent_json_ptr": "/propertyNames",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/propertyNames/anyOf/1",
+    "parent_json_ptr": "/propertyNames",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_not": {
+          "title": "foo"
+        },
+        "bar_not": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/not",
+    "parent_json_ptr": "",
+    "parent_keyword": "not",
+    "key_index": null
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/not/properties/foo_not",
+    "parent_json_ptr": "/not",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_not"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/not/properties/bar_not",
+    "parent_json_ptr": "/not",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_not"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/not/anyOf/0",
+    "parent_json_ptr": "/not",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/not/anyOf/1",
+    "parent_json_ptr": "/not",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_allOf_0": {
+          "title": "foo"
+        },
+        "bar_allOf_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/allOf/0",
+    "parent_json_ptr": "",
+    "parent_keyword": "allOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/allOf/0/properties/foo_allOf_0",
+    "parent_json_ptr": "/allOf/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_allOf_0"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/allOf/0/properties/bar_allOf_0",
+    "parent_json_ptr": "/allOf/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_allOf_0"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/allOf/0/anyOf/0",
+    "parent_json_ptr": "/allOf/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/allOf/0/anyOf/1",
+    "parent_json_ptr": "/allOf/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_allOf_1": {
+          "title": "foo"
+        },
+        "bar_allOf_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/allOf/1",
+    "parent_json_ptr": "",
+    "parent_keyword": "allOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/allOf/1/properties/foo_allOf_1",
+    "parent_json_ptr": "/allOf/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_allOf_1"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/allOf/1/properties/bar_allOf_1",
+    "parent_json_ptr": "/allOf/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_allOf_1"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/allOf/1/anyOf/0",
+    "parent_json_ptr": "/allOf/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/allOf/1/anyOf/1",
+    "parent_json_ptr": "/allOf/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "items": [
+        {
+          "properties": {
+            "foo_items_0": {
+              "title": "foo"
+            },
+            "bar_items_0": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        },
+        {
+          "properties": {
+            "foo_items_1": {
+              "title": "foo"
+            },
+            "bar_items_1": {
+              "title": "bar"
+            }
+          },
+          "additionalProperties": false,
+          "additionalItems": false,
+          "anyOf": [
+            {
+              "format": "email"
+            },
+            {
+              "format": "hostname"
+            }
+          ]
+        }
+      ]
+    },
+    "json_ptr": "/allOf/2",
+    "parent_json_ptr": "",
+    "parent_keyword": "allOf",
+    "key_index": {
+      "index": 2
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_items_0": {
+          "title": "foo"
+        },
+        "bar_items_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/allOf/2/items/0",
+    "parent_json_ptr": "/allOf/2",
+    "parent_keyword": "items",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/allOf/2/items/0/properties/foo_items_0",
+    "parent_json_ptr": "/allOf/2/items/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_items_0"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/allOf/2/items/0/properties/bar_items_0",
+    "parent_json_ptr": "/allOf/2/items/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_items_0"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/allOf/2/items/0/anyOf/0",
+    "parent_json_ptr": "/allOf/2/items/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/allOf/2/items/0/anyOf/1",
+    "parent_json_ptr": "/allOf/2/items/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_items_1": {
+          "title": "foo"
+        },
+        "bar_items_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/allOf/2/items/1",
+    "parent_json_ptr": "/allOf/2",
+    "parent_keyword": "items",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/allOf/2/items/1/properties/foo_items_1",
+    "parent_json_ptr": "/allOf/2/items/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_items_1"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/allOf/2/items/1/properties/bar_items_1",
+    "parent_json_ptr": "/allOf/2/items/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_items_1"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/allOf/2/items/1/anyOf/0",
+    "parent_json_ptr": "/allOf/2/items/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/allOf/2/items/1/anyOf/1",
+    "parent_json_ptr": "/allOf/2/items/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_anyOf_0": {
+          "title": "foo"
+        },
+        "bar_anyOf_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/anyOf/0",
+    "parent_json_ptr": "",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/anyOf/0/properties/foo_anyOf_0",
+    "parent_json_ptr": "/anyOf/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_anyOf_0"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/anyOf/0/properties/bar_anyOf_0",
+    "parent_json_ptr": "/anyOf/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_anyOf_0"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/anyOf/0/anyOf/0",
+    "parent_json_ptr": "/anyOf/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/anyOf/0/anyOf/1",
+    "parent_json_ptr": "/anyOf/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_anyOf_1": {
+          "title": "foo"
+        },
+        "bar_anyOf_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/anyOf/1",
+    "parent_json_ptr": "",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/anyOf/1/properties/foo_anyOf_1",
+    "parent_json_ptr": "/anyOf/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_anyOf_1"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/anyOf/1/properties/bar_anyOf_1",
+    "parent_json_ptr": "/anyOf/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_anyOf_1"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/anyOf/1/anyOf/0",
+    "parent_json_ptr": "/anyOf/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/anyOf/1/anyOf/1",
+    "parent_json_ptr": "/anyOf/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_oneOf_0": {
+          "title": "foo"
+        },
+        "bar_oneOf_0": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/oneOf/0",
+    "parent_json_ptr": "",
+    "parent_keyword": "oneOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/oneOf/0/properties/foo_oneOf_0",
+    "parent_json_ptr": "/oneOf/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_oneOf_0"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/oneOf/0/properties/bar_oneOf_0",
+    "parent_json_ptr": "/oneOf/0",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_oneOf_0"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/oneOf/0/anyOf/0",
+    "parent_json_ptr": "/oneOf/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/oneOf/0/anyOf/1",
+    "parent_json_ptr": "/oneOf/0",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_oneOf_1": {
+          "title": "foo"
+        },
+        "bar_oneOf_1": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/oneOf/1",
+    "parent_json_ptr": "",
+    "parent_keyword": "oneOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/oneOf/1/properties/foo_oneOf_1",
+    "parent_json_ptr": "/oneOf/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_oneOf_1"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/oneOf/1/properties/bar_oneOf_1",
+    "parent_json_ptr": "/oneOf/1",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_oneOf_1"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/oneOf/1/anyOf/0",
+    "parent_json_ptr": "/oneOf/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/oneOf/1/anyOf/1",
+    "parent_json_ptr": "/oneOf/1",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_definitions_foo": {
+          "title": "foo"
+        },
+        "bar_definitions_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/definitions/foo",
+    "parent_json_ptr": "",
+    "parent_keyword": "definitions",
+    "key_index": {
+      "key": "foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/definitions/foo/properties/foo_definitions_foo",
+    "parent_json_ptr": "/definitions/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_definitions_foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/definitions/foo/properties/bar_definitions_foo",
+    "parent_json_ptr": "/definitions/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_definitions_foo"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/definitions/foo/anyOf/0",
+    "parent_json_ptr": "/definitions/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/definitions/foo/anyOf/1",
+    "parent_json_ptr": "/definitions/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_definitions_bar": {
+          "title": "foo"
+        },
+        "bar_definitions_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/definitions/bar",
+    "parent_json_ptr": "",
+    "parent_keyword": "definitions",
+    "key_index": {
+      "key": "bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/definitions/bar/properties/foo_definitions_bar",
+    "parent_json_ptr": "/definitions/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_definitions_bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/definitions/bar/properties/bar_definitions_bar",
+    "parent_json_ptr": "/definitions/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_definitions_bar"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/definitions/bar/anyOf/0",
+    "parent_json_ptr": "/definitions/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/definitions/bar/anyOf/1",
+    "parent_json_ptr": "/definitions/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_properties_foo": {
+          "title": "foo"
+        },
+        "bar_properties_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/properties/foo",
+    "parent_json_ptr": "",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/properties/foo/properties/foo_properties_foo",
+    "parent_json_ptr": "/properties/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_properties_foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/properties/foo/properties/bar_properties_foo",
+    "parent_json_ptr": "/properties/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_properties_foo"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/properties/foo/anyOf/0",
+    "parent_json_ptr": "/properties/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/properties/foo/anyOf/1",
+    "parent_json_ptr": "/properties/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_properties_bar": {
+          "title": "foo"
+        },
+        "bar_properties_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/properties/bar",
+    "parent_json_ptr": "",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/properties/bar/properties/foo_properties_bar",
+    "parent_json_ptr": "/properties/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_properties_bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/properties/bar/properties/bar_properties_bar",
+    "parent_json_ptr": "/properties/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_properties_bar"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/properties/bar/anyOf/0",
+    "parent_json_ptr": "/properties/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/properties/bar/anyOf/1",
+    "parent_json_ptr": "/properties/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_patternProperties_foo": {
+          "title": "foo"
+        },
+        "bar_patternProperties_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/patternProperties/foo",
+    "parent_json_ptr": "",
+    "parent_keyword": "patternProperties",
+    "key_index": {
+      "key": "foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/patternProperties/foo/properties/foo_patternProperties_foo",
+    "parent_json_ptr": "/patternProperties/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_patternProperties_foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/patternProperties/foo/properties/bar_patternProperties_foo",
+    "parent_json_ptr": "/patternProperties/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_patternProperties_foo"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/patternProperties/foo/anyOf/0",
+    "parent_json_ptr": "/patternProperties/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/patternProperties/foo/anyOf/1",
+    "parent_json_ptr": "/patternProperties/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_patternProperties_bar": {
+          "title": "foo"
+        },
+        "bar_patternProperties_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/patternProperties/bar",
+    "parent_json_ptr": "",
+    "parent_keyword": "patternProperties",
+    "key_index": {
+      "key": "bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/patternProperties/bar/properties/foo_patternProperties_bar",
+    "parent_json_ptr": "/patternProperties/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_patternProperties_bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/patternProperties/bar/properties/bar_patternProperties_bar",
+    "parent_json_ptr": "/patternProperties/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_patternProperties_bar"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/patternProperties/bar/anyOf/0",
+    "parent_json_ptr": "/patternProperties/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/patternProperties/bar/anyOf/1",
+    "parent_json_ptr": "/patternProperties/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_dependencies_foo": {
+          "title": "foo"
+        },
+        "bar_dependencies_foo": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/dependencies/foo",
+    "parent_json_ptr": "",
+    "parent_keyword": "dependencies",
+    "key_index": {
+      "key": "foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/dependencies/foo/properties/foo_dependencies_foo",
+    "parent_json_ptr": "/dependencies/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_dependencies_foo"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/dependencies/foo/properties/bar_dependencies_foo",
+    "parent_json_ptr": "/dependencies/foo",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_dependencies_foo"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/dependencies/foo/anyOf/0",
+    "parent_json_ptr": "/dependencies/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/dependencies/foo/anyOf/1",
+    "parent_json_ptr": "/dependencies/foo",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  },
+  {
+    "schema": {
+      "properties": {
+        "foo_dependencies_bar": {
+          "title": "foo"
+        },
+        "bar_dependencies_bar": {
+          "title": "bar"
+        }
+      },
+      "additionalProperties": false,
+      "additionalItems": false,
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {
+          "format": "hostname"
+        }
+      ]
+    },
+    "json_ptr": "/dependencies/bar",
+    "parent_json_ptr": "",
+    "parent_keyword": "dependencies",
+    "key_index": {
+      "key": "bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "foo"
+    },
+    "json_ptr": "/dependencies/bar/properties/foo_dependencies_bar",
+    "parent_json_ptr": "/dependencies/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "foo_dependencies_bar"
+    }
+  },
+  {
+    "schema": {
+      "title": "bar"
+    },
+    "json_ptr": "/dependencies/bar/properties/bar_dependencies_bar",
+    "parent_json_ptr": "/dependencies/bar",
+    "parent_keyword": "properties",
+    "key_index": {
+      "key": "bar_dependencies_bar"
+    }
+  },
+  {
+    "schema": {
+      "format": "email"
+    },
+    "json_ptr": "/dependencies/bar/anyOf/0",
+    "parent_json_ptr": "/dependencies/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 0
+    }
+  },
+  {
+    "schema": {
+      "format": "hostname"
+    },
+    "json_ptr": "/dependencies/bar/anyOf/1",
+    "parent_json_ptr": "/dependencies/bar",
+    "parent_keyword": "anyOf",
+    "key_index": {
+      "index": 1
+    }
+  }
+]
