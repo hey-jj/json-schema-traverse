@@ -1,4 +1,4 @@
-//! Behavior the canonical suite asserts only implicitly (A1 through A11).
+//! Behavior the canonical suite asserts only implicitly (A1 through A15).
 //!
 //! Each expected sequence comes from the traversal rules: which keywords
 //! descend, how pointers are built, and the object-only guard.
@@ -264,5 +264,74 @@ fn integer_like_property_names_visit_numeric_first() {
             "/properties/bar".to_owned(),
             "/properties/01".to_owned(),
         ]
+    );
+}
+
+/// A12: array indices stay tied to the raw array position. Non-object elements
+/// are skipped but do not renumber the survivors.
+#[test]
+fn array_index_survives_skipped_elements() {
+    let schema = json!({"allOf": [true, {"type": "x"}, 42, false, {"type": "y"}]});
+    let calls = record(&schema, Options::default());
+    let got: Vec<_> = calls
+        .iter()
+        .map(|r| (r.json_ptr.as_str(), r.key_index.clone()))
+        .collect();
+    assert_eq!(
+        got,
+        vec![
+            ("", None),
+            ("/allOf/1", Some(RecordKeyIndex::Index { index: 1 })),
+            ("/allOf/4", Some(RecordKeyIndex::Index { index: 4 })),
+        ]
+    );
+}
+
+/// A13: an empty property name yields a trailing-slash pointer that still
+/// resolves, and the key index holds the empty string.
+#[test]
+fn empty_property_name_yields_trailing_slash() {
+    let schema = json!({"properties": {"": {"type": "string"}}});
+    let calls = record(&schema, Options::default());
+    assert_eq!(calls.len(), 2);
+    assert_eq!(calls[1].json_ptr, "/properties/");
+    assert_eq!(
+        calls[1].key_index,
+        Some(RecordKeyIndex::Key { key: String::new() })
+    );
+    assert_eq!(
+        schema.pointer("/properties/"),
+        Some(&json!({"type": "string"}))
+    );
+}
+
+/// A14: unicode property names pass through unescaped. RFC 6901 escaping only
+/// touches `~` and `/`, so multibyte names appear verbatim and still resolve.
+#[test]
+fn unicode_property_names_pass_through() {
+    let schema = json!({"properties": {"héllo→wörld": {"type": "string"}}});
+    let calls = record(&schema, Options::default());
+    assert_eq!(calls.len(), 2);
+    assert_eq!(calls[1].json_ptr, "/properties/héllo→wörld");
+    assert_eq!(
+        calls[1].key_index,
+        Some(RecordKeyIndex::Key {
+            key: "héllo→wörld".to_owned()
+        })
+    );
+    assert_eq!(
+        schema.pointer("/properties/héllo→wörld"),
+        Some(&json!({"type": "string"}))
+    );
+}
+
+/// A15: a props keyword whose value is null is not descended. The sibling
+/// object keyword still is.
+#[test]
+fn props_keyword_with_null_value_is_skipped() {
+    let schema = json!({"definitions": null, "not": {"type": "x"}});
+    assert_eq!(
+        ptrs(&schema, Options::default()),
+        vec!["".to_owned(), "/not".to_owned()]
     );
 }
