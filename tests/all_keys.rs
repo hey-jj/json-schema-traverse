@@ -23,7 +23,7 @@ fn root_record(schema: &Value) -> Record {
 #[test]
 fn all_keys_true_descends_unknown_keyword() {
     let schema = json!({"someObject": {"minimum": 1, "maximum": 2}});
-    let calls = record(&schema, &Options { all_keys: true });
+    let calls = record(&schema, Options { all_keys: true });
     let expected = vec![
         root_record(&schema),
         Record {
@@ -42,7 +42,7 @@ fn all_keys_true_descends_unknown_keyword() {
 #[test]
 fn all_keys_false_skips_unknown_keyword() {
     let schema = json!({"someObject": {"minimum": 1, "maximum": 2}});
-    let calls = record(&schema, &Options { all_keys: false });
+    let calls = record(&schema, Options { all_keys: false });
     assert_eq!(calls, vec![root_record(&schema)]);
 }
 
@@ -50,7 +50,7 @@ fn all_keys_false_skips_unknown_keyword() {
 #[test]
 fn default_skips_unknown_keyword() {
     let schema = json!({"someObject": {"minimum": 1, "maximum": 2}});
-    let calls = record(&schema, &Options::default());
+    let calls = record(&schema, Options::default());
     assert_eq!(calls, vec![root_record(&schema)]);
 }
 
@@ -75,7 +75,7 @@ fn skip_keywords_not_descended_under_all_keys() {
             "larger": {"type": "number", "minimum": {"$data": "1/smaller"}}
         }
     });
-    let calls = record(&schema, &Options { all_keys: true });
+    let calls = record(&schema, Options { all_keys: true });
     let expected = vec![
         root_record(&schema),
         Record {

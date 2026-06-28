@@ -23,8 +23,8 @@
 //! });
 //!
 //! let mut seen = Vec::new();
-//! traverse(&schema, &Options::default(), |ctx| {
-//!     seen.push(ctx.json_ptr.clone());
+//! traverse(&schema, Options::default(), |ctx| {
+//!     seen.push(ctx.json_ptr.to_owned());
 //! });
 //!
 //! // Root, then each property value, in insertion order.
@@ -57,23 +57,25 @@ pub enum KeyIndex {
 
 /// The seven values handed to each callback for a visited subschema.
 ///
-/// Lifetimes tie every borrowed `Value` to the root schema passed to
-/// [`traverse`]. The fields mirror the callback arguments described in the
-/// crate docs.
-#[derive(Debug)]
+/// Every field borrows. The `'a` lifetime ties the borrowed values to the data
+/// that outlives a single callback: the root schema and the pointer strings
+/// built during the walk. A callback that needs to keep a pointer or a keyword
+/// past the call clones it with `.to_owned()`. The fields mirror the callback
+/// arguments described in the crate docs.
+#[derive(Debug, Clone, PartialEq)]
 pub struct Context<'a> {
     /// The current subschema object.
     pub schema: &'a Value,
     /// JSON Pointer (RFC 6901) from the root to this subschema. The root is the
     /// empty string.
-    pub json_ptr: String,
+    pub json_ptr: &'a str,
     /// The root schema passed to [`traverse`].
     pub root_schema: &'a Value,
     /// JSON Pointer to the parent schema object. `None` for the root.
-    pub parent_json_ptr: Option<String>,
+    pub parent_json_ptr: Option<&'a str>,
     /// Keyword name that contains this subschema, such as `properties` or
     /// `anyOf`. `None` for the root.
-    pub parent_keyword: Option<String>,
+    pub parent_keyword: Option<&'a str>,
     /// The parent schema object. For a property value this is the schema that
     /// holds the `properties` keyword, not the `properties` map itself. `None`
     /// for the root.
@@ -107,25 +109,16 @@ pub struct Options {
 ///
 /// let schema = json!({"not": {"type": "string"}});
 /// let mut count = 0;
-/// traverse(&schema, &Options::default(), |_ctx| count += 1);
+/// traverse(&schema, Options::default(), |_ctx| count += 1);
 /// assert_eq!(count, 2); // root and the `not` subschema
 /// ```
-pub fn traverse<F>(schema: &Value, opts: &Options, mut cb: F)
+pub fn traverse<F>(schema: &Value, opts: Options, mut cb: F)
 where
     F: FnMut(&Context),
 {
     let mut noop = |_: &Context| {};
     walk(
-        opts,
-        &mut cb,
-        &mut noop,
-        schema,
-        String::new(),
-        schema,
-        None,
-        None,
-        None,
-        None,
+        opts, &mut cb, &mut noop, schema, "", schema, None, None, None, None,
     );
 }
 
@@ -146,7 +139,7 @@ where
 /// let order = RefCell::new(Vec::new());
 /// traverse_pre_post(
 ///     &schema,
-///     &Options::default(),
+///     Options::default(),
 ///     |ctx| order.borrow_mut().push(format!("pre {}", ctx.json_ptr)),
 ///     |ctx| order.borrow_mut().push(format!("post {}", ctx.json_ptr)),
 /// );
@@ -155,36 +148,27 @@ where
 ///     vec!["pre ", "pre /properties/a", "post /properties/a", "post "]
 /// );
 /// ```
-pub fn traverse_pre_post<P, Q>(schema: &Value, opts: &Options, mut pre: P, mut post: Q)
+pub fn traverse_pre_post<P, Q>(schema: &Value, opts: Options, mut pre: P, mut post: Q)
 where
     P: FnMut(&Context),
     Q: FnMut(&Context),
 {
     walk(
-        opts,
-        &mut pre,
-        &mut post,
-        schema,
-        String::new(),
-        schema,
-        None,
-        None,
-        None,
-        None,
+        opts, &mut pre, &mut post, schema, "", schema, None, None, None, None,
     );
 }
 
 /// Recursive worker. Visits `schema` only when it is a plain object.
 #[allow(clippy::too_many_arguments)]
 fn walk<'a>(
-    opts: &Options,
+    opts: Options,
     pre: &mut dyn FnMut(&Context),
     post: &mut dyn FnMut(&Context),
     schema: &'a Value,
-    json_ptr: String,
+    json_ptr: &str,
     root_schema: &'a Value,
-    parent_json_ptr: Option<String>,
-    parent_keyword: Option<String>,
+    parent_json_ptr: Option<&str>,
+    parent_keyword: Option<&str>,
     parent_schema: Option<&'a Value>,
     key_index: Option<KeyIndex>,
 ) {
@@ -194,12 +178,12 @@ fn walk<'a>(
 
     let ctx = Context {
         schema,
-        json_ptr: json_ptr.clone(),
+        json_ptr,
         root_schema,
-        parent_json_ptr: parent_json_ptr.clone(),
-        parent_keyword: parent_keyword.clone(),
+        parent_json_ptr,
+        parent_keyword,
         parent_schema,
-        key_index: key_index.clone(),
+        key_index,
     };
     pre(&ctx);
 
@@ -207,15 +191,16 @@ fn walk<'a>(
         match sch {
             Value::Array(items) if keywords::is_array_keyword(key) => {
                 for (i, item) in items.iter().enumerate() {
+                    let child_ptr = format!("{json_ptr}/{key}/{i}");
                     walk(
                         opts,
                         pre,
                         post,
                         item,
-                        format!("{json_ptr}/{key}/{i}"),
+                        &child_ptr,
                         root_schema,
-                        Some(json_ptr.clone()),
-                        Some(key.clone()),
+                        Some(json_ptr),
+                        Some(key),
                         Some(schema),
                         Some(KeyIndex::Index(i)),
                     );
@@ -228,15 +213,16 @@ fn walk<'a>(
             _ if keywords::is_props_keyword(key) => {
                 if let Value::Object(props) = sch {
                     for (prop, prop_sch) in props {
+                        let child_ptr = format!("{json_ptr}/{key}/{}", escape_json_ptr(prop));
                         walk(
                             opts,
                             pre,
                             post,
                             prop_sch,
-                            format!("{json_ptr}/{key}/{}", escape_json_ptr(prop)),
+                            &child_ptr,
                             root_schema,
-                            Some(json_ptr.clone()),
-                            Some(key.clone()),
+                            Some(json_ptr),
+                            Some(key),
                             Some(schema),
                             Some(KeyIndex::Key(prop.clone())),
                         );
@@ -246,15 +232,16 @@ fn walk<'a>(
             _ if keywords::is_keyword(key)
                 || (opts.all_keys && !keywords::is_skip_keyword(key)) =>
             {
+                let child_ptr = format!("{json_ptr}/{key}");
                 walk(
                     opts,
                     pre,
                     post,
                     sch,
-                    format!("{json_ptr}/{key}"),
+                    &child_ptr,
                     root_schema,
-                    Some(json_ptr.clone()),
-                    Some(key.clone()),
+                    Some(json_ptr),
+                    Some(key),
                     Some(schema),
                     None,
                 );
@@ -272,4 +259,27 @@ fn walk<'a>(
 /// the second pass is not re-escaped by the first.
 fn escape_json_ptr(s: &str) -> String {
     s.replace('~', "~0").replace('/', "~1")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    #[test]
+    fn context_clones_equal_to_source() {
+        let root = json!({"not": {"type": "string"}});
+        let child = &root["not"];
+        let ctx = Context {
+            schema: child,
+            json_ptr: "/not",
+            root_schema: &root,
+            parent_json_ptr: Some(""),
+            parent_keyword: Some("not"),
+            parent_schema: Some(&root),
+            key_index: None,
+        };
+        let copy = ctx.clone();
+        assert_eq!(ctx, copy);
+    }
 }

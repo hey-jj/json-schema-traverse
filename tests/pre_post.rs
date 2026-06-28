@@ -49,7 +49,7 @@ fn age_key() -> Option<RecordKeyIndex> {
 #[test]
 fn pre_order() {
     let s = schema();
-    let calls = record_pre(&s, &Options::default());
+    let calls = record_pre(&s, Options::default());
     let expected = vec![
         tagged("pre", s.clone(), "", None),
         tagged(
@@ -72,7 +72,7 @@ fn pre_order() {
 #[test]
 fn post_order() {
     let s = schema();
-    let calls = record_post(&s, &Options::default());
+    let calls = record_post(&s, Options::default());
     let expected = vec![
         tagged(
             "post",
@@ -95,7 +95,7 @@ fn post_order() {
 #[test]
 fn pre_and_post_interleaved() {
     let s = schema();
-    let calls = record_pre_post(&s, &Options::default());
+    let calls = record_pre_post(&s, Options::default());
     let expected = vec![
         tagged("pre", s.clone(), "", None),
         tagged(

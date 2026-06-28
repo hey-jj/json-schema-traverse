@@ -11,7 +11,7 @@ use pretty_assertions::assert_eq;
 use serde_json::json;
 
 /// Visited JSON pointers in order, for compact assertions.
-fn ptrs(schema: &serde_json::Value, opts: &Options) -> Vec<String> {
+fn ptrs(schema: &serde_json::Value, opts: Options) -> Vec<String> {
     record(schema, opts)
         .into_iter()
         .map(|r| r.json_ptr)
@@ -27,7 +27,7 @@ fn if_then_else_descend() {
         "then": {"properties": {"b": {"type": "string"}}},
         "else": {"properties": {"c": {"type": "string"}}}
     });
-    let calls = record(&schema, &Options::default());
+    let calls = record(&schema, Options::default());
     let got: Vec<_> = calls
         .iter()
         .map(|r| {
@@ -68,7 +68,7 @@ fn if_then_else_descend() {
 #[test]
 fn defs_is_props_keyword() {
     let schema = json!({"$defs": {"x": {"type": "string"}}});
-    let calls = record(&schema, &Options::default());
+    let calls = record(&schema, Options::default());
     assert_eq!(calls.len(), 2);
     assert_eq!(calls[1].json_ptr, "/$defs/x");
     assert_eq!(
@@ -89,9 +89,9 @@ fn property_names_are_escaped_in_pointer() {
             "m~/n": {"type": "string"}
         }
     });
-    let calls = record(&schema, &Options::default());
+    let calls = record(&schema, Options::default());
     assert_eq!(
-        ptrs(&schema, &Options::default()),
+        ptrs(&schema, Options::default()),
         vec![
             "".to_owned(),
             "/properties/a~1b".to_owned(),
@@ -130,8 +130,8 @@ fn non_object_root_yields_no_calls() {
         json!(null),
         json!([1, 2]),
     ] {
-        assert!(record(&root, &Options::default()).is_empty());
-        assert!(record(&root, &Options { all_keys: true }).is_empty());
+        assert!(record(&root, Options::default()).is_empty());
+        assert!(record(&root, Options { all_keys: true }).is_empty());
     }
 }
 
@@ -140,7 +140,7 @@ fn non_object_root_yields_no_calls() {
 fn boolean_subschema_is_skipped() {
     let schema = json!({"properties": {"a": true, "b": {"type": "string"}}});
     assert_eq!(
-        ptrs(&schema, &Options::default()),
+        ptrs(&schema, Options::default()),
         vec!["".to_owned(), "/properties/b".to_owned()]
     );
 }
@@ -154,13 +154,13 @@ fn ref_value_passes_through_unresolved() {
         "definitions": {"x": {"type": "string"}}
     });
     assert_eq!(
-        ptrs(&schema, &Options::default()),
+        ptrs(&schema, Options::default()),
         vec!["".to_owned(), "/definitions/x".to_owned()]
     );
     // Even with allKeys the string $ref is recursed into then skipped by the
     // object guard, so no extra call appears.
     assert_eq!(
-        ptrs(&schema, &Options { all_keys: true }),
+        ptrs(&schema, Options { all_keys: true }),
         vec!["".to_owned(), "/definitions/x".to_owned()]
     );
 }
@@ -172,7 +172,7 @@ fn insertion_order_drives_visit_order() {
     let a = json!({"properties": {"x": {"type": "string"}, "y": {"type": "number"}}});
     let b = json!({"properties": {"y": {"type": "number"}, "x": {"type": "string"}}});
     assert_eq!(
-        ptrs(&a, &Options::default()),
+        ptrs(&a, Options::default()),
         vec![
             "".to_owned(),
             "/properties/x".to_owned(),
@@ -180,7 +180,7 @@ fn insertion_order_drives_visit_order() {
         ]
     );
     assert_eq!(
-        ptrs(&b, &Options::default()),
+        ptrs(&b, Options::default()),
         vec![
             "".to_owned(),
             "/properties/y".to_owned(),
@@ -214,7 +214,7 @@ fn all_skip_keywords_not_descended() {
         "minProperties": {"x": 1}
     });
     assert_eq!(
-        ptrs(&schema, &Options { all_keys: true }),
+        ptrs(&schema, Options { all_keys: true }),
         vec!["".to_owned()]
     );
 }
@@ -224,11 +224,11 @@ fn all_skip_keywords_not_descended() {
 #[test]
 fn non_array_array_keyword_is_ignored() {
     let schema = json!({"allOf": {"not": {"type": "string"}}});
-    assert_eq!(ptrs(&schema, &Options::default()), vec!["".to_owned()]);
+    assert_eq!(ptrs(&schema, Options::default()), vec!["".to_owned()]);
     // With allKeys, allOf is not a skip keyword, so the object is descended once
     // as a single value, and its `not` child is reached.
     assert_eq!(
-        ptrs(&schema, &Options { all_keys: true }),
+        ptrs(&schema, Options { all_keys: true }),
         vec!["".to_owned(), "/allOf".to_owned(), "/allOf/not".to_owned()]
     );
 }
@@ -237,5 +237,5 @@ fn non_array_array_keyword_is_ignored() {
 #[test]
 fn empty_containers_have_no_children() {
     let schema = json!({"properties": {}, "allOf": [], "items": []});
-    assert_eq!(ptrs(&schema, &Options::default()), vec!["".to_owned()]);
+    assert_eq!(ptrs(&schema, Options::default()), vec!["".to_owned()]);
 }

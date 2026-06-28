@@ -29,8 +29,8 @@ let schema = json!({
 });
 
 let mut seen = Vec::new();
-traverse(&schema, &Options::default(), |ctx| {
-    seen.push(ctx.json_ptr.clone());
+traverse(&schema, Options::default(), |ctx| {
+    seen.push(ctx.json_ptr.to_owned());
 });
 
 assert_eq!(seen, vec!["", "/properties/foo", "/properties/bar"]);

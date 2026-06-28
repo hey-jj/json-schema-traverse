@@ -48,7 +48,7 @@ proptest! {
     #[test]
     fn pointer_soundness(schema in arb_value()) {
         for opts in [Options::default(), Options { all_keys: true }] {
-            for r in record(&schema, &opts) {
+            for r in record(&schema, opts) {
                 let at = schema.pointer(&r.json_ptr);
                 prop_assert_eq!(at, Some(&r.schema), "ptr {:?}", r.json_ptr);
             }
@@ -61,9 +61,9 @@ proptest! {
     #[test]
     fn pre_post_symmetry(schema in arb_value()) {
         for opts in [Options::default(), Options { all_keys: true }] {
-            let pre: Vec<String> = record_pre(&schema, &opts)
+            let pre: Vec<String> = record_pre(&schema, opts)
                 .into_iter().map(|r| r.json_ptr).collect();
-            let post: Vec<String> = record_post(&schema, &opts)
+            let post: Vec<String> = record_post(&schema, opts)
                 .into_iter().map(|r| r.json_ptr).collect();
             prop_assert_eq!(pre.len(), post.len());
             let mut pre_sorted = pre.clone();
@@ -79,9 +79,9 @@ proptest! {
     #[test]
     fn all_keys_monotonicity(schema in arb_value()) {
         let off: std::collections::BTreeSet<String> =
-            record(&schema, &Options::default()).into_iter().map(|r| r.json_ptr).collect();
+            record(&schema, Options::default()).into_iter().map(|r| r.json_ptr).collect();
         let on: std::collections::BTreeSet<String> =
-            record(&schema, &Options { all_keys: true }).into_iter().map(|r| r.json_ptr).collect();
+            record(&schema, Options { all_keys: true }).into_iter().map(|r| r.json_ptr).collect();
         prop_assert!(off.is_subset(&on));
     }
 
@@ -89,7 +89,7 @@ proptest! {
     #[test]
     fn input_is_not_mutated(schema in arb_value()) {
         let before = schema.clone();
-        let _ = record(&schema, &Options { all_keys: true });
+        let _ = record(&schema, Options { all_keys: true });
         prop_assert_eq!(schema, before);
     }
 }
@@ -106,7 +106,7 @@ proptest! {
         root.insert("properties".to_owned(), Value::Object(props));
         let schema = Value::Object(root);
 
-        let calls = record(&schema, &Options::default());
+        let calls = record(&schema, Options::default());
         // root plus the one property.
         prop_assert_eq!(calls.len(), 2);
         let child = &calls[1];

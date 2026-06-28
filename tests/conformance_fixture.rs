@@ -23,7 +23,7 @@ fn generated_expected_matches_committed_file() {
 #[test]
 fn traverses_all_keywords_recursively() {
     let s = schema();
-    let calls = record(&s, &Options::default());
+    let calls = record(&s, Options::default());
     assert_eq!(calls, expected_calls_all());
 }
 
@@ -33,14 +33,14 @@ fn traverses_all_keywords_recursively() {
 #[test]
 fn legacy_two_arg_form_matches() {
     let s = schema();
-    let calls = record(&s, &Options::default());
+    let calls = record(&s, Options::default());
     assert_eq!(calls, expected_calls_all());
 }
 
 #[test]
 fn legacy_empty_opts_form_matches() {
     let s = schema();
-    let calls = record(&s, &Options { all_keys: false });
+    let calls = record(&s, Options { all_keys: false });
     assert_eq!(calls, expected_calls_all());
 }
 
@@ -48,5 +48,5 @@ fn legacy_empty_opts_form_matches() {
 #[test]
 fn record_count_is_stable() {
     let s = schema();
-    assert_eq!(record(&s, &Options::default()).len(), 112);
+    assert_eq!(record(&s, Options::default()).len(), 112);
 }

@@ -60,9 +60,9 @@ impl Record {
         Record {
             tag: tag.map(str::to_owned),
             schema: ctx.schema.clone(),
-            json_ptr: ctx.json_ptr.clone(),
-            parent_json_ptr: ctx.parent_json_ptr.clone(),
-            parent_keyword: ctx.parent_keyword.clone(),
+            json_ptr: ctx.json_ptr.to_owned(),
+            parent_json_ptr: ctx.parent_json_ptr.map(str::to_owned),
+            parent_keyword: ctx.parent_keyword.map(str::to_owned),
             key_index: ctx.key_index.as_ref().map(RecordKeyIndex::from),
         }
     }
@@ -74,14 +74,14 @@ impl Record {
 fn check_identity(ctx: &Context) {
     let at = ctx
         .root_schema
-        .pointer(&ctx.json_ptr)
+        .pointer(ctx.json_ptr)
         .expect("json_ptr must resolve in root");
     assert_eq!(
         at, ctx.schema,
         "schema at {:?} does not match the addressed node",
         ctx.json_ptr
     );
-    if let Some(pptr) = &ctx.parent_json_ptr {
+    if let Some(pptr) = ctx.parent_json_ptr {
         let parent_at = ctx
             .root_schema
             .pointer(pptr)
@@ -97,7 +97,7 @@ fn check_identity(ctx: &Context) {
 }
 
 /// Record a single-callback (pre-only) run.
-pub fn record(schema: &Value, opts: &Options) -> Vec<Record> {
+pub fn record(schema: &Value, opts: Options) -> Vec<Record> {
     let mut calls = Vec::new();
     traverse(schema, opts, |ctx| {
         check_identity(ctx);
@@ -107,7 +107,7 @@ pub fn record(schema: &Value, opts: &Options) -> Vec<Record> {
 }
 
 /// Record a pre-only run, tagging each record `"pre"`.
-pub fn record_pre(schema: &Value, opts: &Options) -> Vec<Record> {
+pub fn record_pre(schema: &Value, opts: Options) -> Vec<Record> {
     let mut calls = Vec::new();
     traverse_pre_post(
         schema,
@@ -122,7 +122,7 @@ pub fn record_pre(schema: &Value, opts: &Options) -> Vec<Record> {
 }
 
 /// Record a post-only run, tagging each record `"post"`.
-pub fn record_post(schema: &Value, opts: &Options) -> Vec<Record> {
+pub fn record_post(schema: &Value, opts: Options) -> Vec<Record> {
     let mut calls = Vec::new();
     traverse_pre_post(
         schema,
@@ -137,7 +137,7 @@ pub fn record_post(schema: &Value, opts: &Options) -> Vec<Record> {
 }
 
 /// Record a combined pre and post run into a single tagged sequence.
-pub fn record_pre_post(schema: &Value, opts: &Options) -> Vec<Record> {
+pub fn record_pre_post(schema: &Value, opts: Options) -> Vec<Record> {
     use std::cell::RefCell;
     let calls = RefCell::new(Vec::new());
     traverse_pre_post(
