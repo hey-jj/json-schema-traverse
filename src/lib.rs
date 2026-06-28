@@ -34,6 +34,13 @@
 //! Object key order follows the order of the parsed document, so build
 //! `serde_json::Value` with the `preserve_order` feature when call order
 //! matters. This crate enables that feature.
+//!
+//! Property maps are one exception. Inside a property-map keyword such as
+//! `properties` or `$defs`, integer-like property names are visited first in
+//! ascending numeric order, then the remaining names in insertion order. This
+//! matches how a JavaScript `for..in` loop enumerates object keys. JSON Schema
+//! keyword names are never integer-like, so this only affects property maps
+//! keyed by numeric strings.
 
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
@@ -212,7 +219,8 @@ fn walk<'a>(
             Value::Array(_) => {}
             _ if keywords::is_props_keyword(key) => {
                 if let Value::Object(props) = sch {
-                    for (prop, prop_sch) in props {
+                    for prop in enumeration_order(props) {
+                        let prop_sch = &props[prop];
                         let child_ptr = format!("{json_ptr}/{key}/{}", escape_json_ptr(prop));
                         walk(
                             opts,
@@ -253,6 +261,51 @@ fn walk<'a>(
     post(&ctx);
 }
 
+/// Order property names the way a JavaScript `for..in` loop enumerates object
+/// keys. Integer-like keys come first in ascending numeric order, then the
+/// remaining keys in insertion order.
+///
+/// A property map keyed by numeric strings is legal but uncommon. Without this
+/// rule a map like `{"2": ..., "1": ..., "x": ...}` would be visited in
+/// insertion order, which differs from the enumeration a JSON Schema walk
+/// produces. JSON Schema keyword names are never integer-like, so this only
+/// affects the property-map keywords.
+fn enumeration_order(map: &serde_json::Map<String, Value>) -> Vec<&String> {
+    let mut integer_keys: Vec<(u32, &String)> = Vec::new();
+    let mut string_keys: Vec<&String> = Vec::new();
+    for key in map.keys() {
+        match array_index(key) {
+            Some(n) => integer_keys.push((n, key)),
+            None => string_keys.push(key),
+        }
+    }
+    integer_keys.sort_by_key(|(n, _)| *n);
+    integer_keys
+        .into_iter()
+        .map(|(_, key)| key)
+        .chain(string_keys)
+        .collect()
+}
+
+/// Parse a string as a JavaScript array index. A key is an array index when it
+/// is the canonical decimal form of an integer in `0..=4294967294`. Leading
+/// zeros, signs, and other non-canonical forms are not array indices.
+fn array_index(key: &str) -> Option<u32> {
+    if key == "0" {
+        return Some(0);
+    }
+    if key.is_empty() || key.starts_with('0') {
+        return None;
+    }
+    if !key.bytes().all(|b| b.is_ascii_digit()) {
+        return None;
+    }
+    match key.parse::<u32>() {
+        Ok(n) if n < u32::MAX => Some(n),
+        _ => None,
+    }
+}
+
 /// Escape a property name for use as a JSON Pointer reference token (RFC 6901).
 ///
 /// Replaces `~` with `~0`, then `/` with `~1`. Order matters so the `~1` from
@@ -281,5 +334,31 @@ mod tests {
         };
         let copy = ctx.clone();
         assert_eq!(ctx, copy);
+    }
+
+    #[test]
+    fn array_index_accepts_only_canonical_decimals() {
+        assert_eq!(array_index("0"), Some(0));
+        assert_eq!(array_index("1"), Some(1));
+        assert_eq!(array_index("10"), Some(10));
+        assert_eq!(array_index("4294967294"), Some(4_294_967_294));
+        // Not array indices.
+        assert_eq!(array_index("01"), None);
+        assert_eq!(array_index(""), None);
+        assert_eq!(array_index("-1"), None);
+        assert_eq!(array_index("1.0"), None);
+        assert_eq!(array_index("1e3"), None);
+        assert_eq!(array_index("x"), None);
+        assert_eq!(array_index("4294967295"), None);
+    }
+
+    #[test]
+    fn enumeration_order_puts_integers_first() {
+        let map = json!({"2": 0, "1": 0, "x": 0, "10": 0, "01": 0})
+            .as_object()
+            .unwrap()
+            .clone();
+        let order: Vec<&str> = enumeration_order(&map).iter().map(|k| k.as_str()).collect();
+        assert_eq!(order, vec!["1", "2", "10", "x", "01"]);
     }
 }

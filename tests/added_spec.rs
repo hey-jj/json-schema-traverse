@@ -1,4 +1,4 @@
-//! Behavior the canonical suite asserts only implicitly (A1 through A10).
+//! Behavior the canonical suite asserts only implicitly (A1 through A11).
 //!
 //! Each expected sequence comes from the traversal rules: which keywords
 //! descend, how pointers are built, and the object-only guard.
@@ -238,4 +238,31 @@ fn non_array_array_keyword_is_ignored() {
 fn empty_containers_have_no_children() {
     let schema = json!({"properties": {}, "allOf": [], "items": []});
     assert_eq!(ptrs(&schema, Options::default()), vec!["".to_owned()]);
+}
+
+/// A11: integer-like property names visit numeric-first, then string names in
+/// insertion order. This matches a JavaScript `for..in` walk. The leading zero
+/// in `"01"` keeps it out of the integer group.
+#[test]
+fn integer_like_property_names_visit_numeric_first() {
+    let schema = json!({"properties": {
+        "foo": {"type": "string"},
+        "2":   {"type": "a"},
+        "1":   {"type": "b"},
+        "bar": {"type": "c"},
+        "10":  {"type": "d"},
+        "01":  {"type": "e"}
+    }});
+    assert_eq!(
+        ptrs(&schema, Options::default()),
+        vec![
+            "".to_owned(),
+            "/properties/1".to_owned(),
+            "/properties/2".to_owned(),
+            "/properties/10".to_owned(),
+            "/properties/foo".to_owned(),
+            "/properties/bar".to_owned(),
+            "/properties/01".to_owned(),
+        ]
+    );
 }

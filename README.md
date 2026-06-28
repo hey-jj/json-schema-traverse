@@ -47,6 +47,12 @@ keywords.
 Object key order follows the order of the parsed document. The crate enables
 the `serde_json` `preserve_order` feature so callbacks fire in source order.
 
+Property maps are one exception. Inside a property-map keyword such as
+`properties` or `$defs`, integer-like property names are visited first in
+ascending numeric order, then the rest in insertion order. This matches how a
+JavaScript `for..in` loop enumerates object keys. Keyword names are never
+integer-like, so this only affects property maps keyed by numeric strings.
+
 ## License
 
 Licensed under the [MIT license](LICENSE).
