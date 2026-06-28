@@ -43,6 +43,21 @@ fn arb_value() -> impl Strategy<Value = Value> {
     })
 }
 
+/// True when pointer `a` is a strict ancestor of pointer `b`, by the JSON
+/// Pointer prefix relation. The root `""` is an ancestor of every non-root
+/// pointer. A non-root `a` is an ancestor of `b` when `b` is `a` followed by a
+/// `/` and at least one more token. The trailing-slash check stops `/a` from
+/// counting as an ancestor of `/ab`.
+fn is_ancestor(a: &str, b: &str) -> bool {
+    if a == b {
+        return false;
+    }
+    if a.is_empty() {
+        return true;
+    }
+    b.strip_prefix(a).is_some_and(|rest| rest.starts_with('/'))
+}
+
 proptest! {
     /// P1: every emitted pointer resolves to the emitted schema.
     #[test]
@@ -55,22 +70,43 @@ proptest! {
         }
     }
 
-    /// P2: pre and post visit the same nodes. The pre order is a valid
-    /// pre-order DFS and post is the matching post-order, so the post sequence
-    /// is the pre sequence reversed by node.
+    /// P2: pre and post visit the same node set, and each order respects the
+    /// tree. In the pre sequence a parent comes before every descendant. In the
+    /// post sequence a parent comes after every descendant. Ancestry is the
+    /// JSON Pointer prefix relation.
     #[test]
-    fn pre_post_symmetry(schema in arb_value()) {
+    fn pre_post_orders_respect_tree(schema in arb_value()) {
         for opts in [Options::default(), Options { all_keys: true }] {
             let pre: Vec<String> = record_pre(&schema, opts)
                 .into_iter().map(|r| r.json_ptr).collect();
             let post: Vec<String> = record_post(&schema, opts)
                 .into_iter().map(|r| r.json_ptr).collect();
-            prop_assert_eq!(pre.len(), post.len());
+
+            // Same node set.
             let mut pre_sorted = pre.clone();
             pre_sorted.sort();
             let mut post_sorted = post.clone();
             post_sorted.sort();
-            prop_assert_eq!(pre_sorted, post_sorted, "same node set");
+            prop_assert_eq!(&pre_sorted, &post_sorted, "same node set");
+
+            // Pre-order: no node precedes one of its ancestors.
+            for (i, a) in pre.iter().enumerate() {
+                for b in &pre[i + 1..] {
+                    prop_assert!(
+                        !is_ancestor(b, a),
+                        "pre: {:?} precedes its ancestor {:?}", a, b
+                    );
+                }
+            }
+            // Post-order: no ancestor precedes one of its descendants.
+            for (i, a) in post.iter().enumerate() {
+                for b in &post[i + 1..] {
+                    prop_assert!(
+                        !is_ancestor(a, b),
+                        "post: ancestor {:?} precedes its descendant {:?}", a, b
+                    );
+                }
+            }
         }
     }
 
