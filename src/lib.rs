@@ -240,7 +240,7 @@ fn walk<'a>(
             _ if keywords::is_keyword(key)
                 || (opts.all_keys && !keywords::is_skip_keyword(key)) =>
             {
-                let child_ptr = format!("{json_ptr}/{key}");
+                let child_ptr = format!("{json_ptr}/{}", escape_json_ptr(key));
                 walk(
                     opts,
                     pre,

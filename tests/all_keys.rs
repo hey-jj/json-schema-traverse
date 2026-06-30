@@ -54,6 +54,27 @@ fn default_skips_unknown_keyword() {
     assert_eq!(calls, vec![root_record(&schema)]);
 }
 
+/// A key holding `/` under allKeys must yield an escaped pointer that resolves
+/// to the visited subschema (RFC 6901). `record` asserts the pointer resolves,
+/// so an unescaped `/x/y` would fail.
+#[test]
+fn all_keys_escapes_pointer_tokens() {
+    let schema = json!({"x/y": {"type": "string"}});
+    let calls = record(&schema, Options { all_keys: true });
+    let expected = vec![
+        root_record(&schema),
+        Record {
+            tag: None,
+            schema: schema["x/y"].clone(),
+            json_ptr: "/x~1y".to_owned(),
+            parent_json_ptr: Some(String::new()),
+            parent_keyword: Some("x/y".to_owned()),
+            key_index: None,
+        },
+    ];
+    assert_eq!(calls, expected);
+}
+
 /// T7: mixed edges under allKeys true. skip keywords (`const`, `enum`) are not
 /// descended even though their values are object or array. `required` is an
 /// array under a non-array keyword, so it is ignored. Empty `patternProperties`
