@@ -44,6 +44,12 @@ Use `traverse_pre_post` to run a pre-order and a post-order callback. Set
 `Options { all_keys: true }` to also descend into objects under unknown
 keywords.
 
+The default keyword tables cover the applicator keywords of draft-07. Keywords
+added later, such as `prefixItems`, `dependentSchemas`, `unevaluatedItems`, and
+`unevaluatedProperties`, are not in those tables, so their subschemas are
+skipped unless `all_keys` is set. `prefixItems` is skipped even with `all_keys`
+because it holds an array under an unknown keyword.
+
 Object key order follows the order of the parsed document. The crate enables
 the `serde_json` `preserve_order` feature so callbacks fire in source order.
 

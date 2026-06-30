@@ -9,6 +9,16 @@
 //! arrays, numbers, strings, and null are never passed to a callback. This
 //! matches the draft-06+ rule that boolean schemas carry no nested schemas.
 //!
+//! # Covered keywords
+//!
+//! The default keyword tables cover the applicator keywords of draft-07 (see
+//! [`keywords`]). Keywords added later, such as `prefixItems`,
+//! `dependentSchemas`, `unevaluatedItems`, and `unevaluatedProperties`, are not
+//! in those tables, so their subschemas are skipped unless [`Options::all_keys`]
+//! is set. `prefixItems` is skipped even with `all_keys` because it holds an
+//! array under an unknown keyword, and arrays under unknown keywords are not
+//! descended.
+//!
 //! # Example
 //!
 //! ```
