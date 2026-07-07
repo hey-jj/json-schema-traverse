@@ -1,8 +1,8 @@
 //! Keyword tables that drive traversal.
 //!
-//! Each table is a sorted set of keyword names. The traversal consults them to
-//! decide how to descend into a value. The tables are public so callers can
-//! check membership or compare against their own keyword logic.
+//! Each table is a set of keyword names. The traversal consults them to decide
+//! how to descend into a value. The tables are public so callers can check
+//! membership or compare against their own keyword logic.
 
 /// Keywords whose value is a single subschema. The traversal descends directly
 /// into the value.
