@@ -175,7 +175,7 @@ where
     );
 }
 
-/// Recursive worker. Visits `schema` only when it is a plain object.
+/// Iterative worker. Visits `schema` only when it is a plain object.
 #[allow(clippy::too_many_arguments)]
 fn walk<'a>(
     opts: Options,
@@ -189,86 +189,119 @@ fn walk<'a>(
     parent_schema: Option<&'a Value>,
     key_index: Option<KeyIndex>,
 ) {
-    let Value::Object(map) = schema else {
-        return;
-    };
-
-    let ctx = Context {
+    let mut stack = vec![WalkFrame {
+        action: WalkAction::Enter,
         schema,
-        json_ptr,
-        root_schema,
-        parent_json_ptr,
+        json_ptr: json_ptr.to_owned(),
+        parent_json_ptr: parent_json_ptr.map(str::to_owned),
         parent_keyword,
         parent_schema,
         key_index,
-    };
-    pre(&ctx);
+    }];
 
-    for (key, sch) in map {
-        match sch {
-            Value::Array(items) if keywords::is_array_keyword(key) => {
-                for (i, item) in items.iter().enumerate() {
-                    let child_ptr = format!("{json_ptr}/{key}/{i}");
-                    walk(
-                        opts,
-                        pre,
-                        post,
-                        item,
-                        &child_ptr,
-                        root_schema,
-                        Some(json_ptr),
-                        Some(key),
-                        Some(schema),
-                        Some(KeyIndex::Index(i)),
-                    );
-                }
-            }
-            // An array under a non-array keyword is ignored entirely. The guard
-            // matches arrays before the props and single-value branches, so an
-            // array never reaches them even if its keyword is in another table.
-            Value::Array(_) => {}
-            _ if keywords::is_props_keyword(key) => {
-                if let Value::Object(props) = sch {
-                    for prop in enumeration_order(props) {
-                        let prop_sch = &props[prop];
-                        let child_ptr = format!("{json_ptr}/{key}/{}", escape_json_ptr(prop));
-                        walk(
-                            opts,
-                            pre,
-                            post,
-                            prop_sch,
-                            &child_ptr,
-                            root_schema,
-                            Some(json_ptr),
-                            Some(key),
-                            Some(schema),
-                            Some(KeyIndex::Key(prop.clone())),
-                        );
+    while let Some(mut frame) = stack.pop() {
+        let ctx = frame.context(root_schema);
+        match frame.action {
+            WalkAction::Enter => {
+                let Value::Object(map) = frame.schema else {
+                    continue;
+                };
+                pre(&ctx);
+
+                let mut child_frames = Vec::new();
+                for (key, sch) in map {
+                    match sch {
+                        Value::Array(items) if keywords::is_array_keyword(key) => {
+                            for (i, item) in items.iter().enumerate() {
+                                child_frames.push(WalkFrame {
+                                    action: WalkAction::Enter,
+                                    schema: item,
+                                    json_ptr: format!("{}/{key}/{i}", frame.json_ptr),
+                                    parent_json_ptr: Some(frame.json_ptr.clone()),
+                                    parent_keyword: Some(key),
+                                    parent_schema: Some(frame.schema),
+                                    key_index: Some(KeyIndex::Index(i)),
+                                });
+                            }
+                        }
+                        // An array under a non-array keyword is ignored entirely. The guard
+                        // matches arrays before the props and single-value branches, so an
+                        // array never reaches them even if its keyword is in another table.
+                        Value::Array(_) => {}
+                        _ if keywords::is_props_keyword(key) => {
+                            if let Value::Object(props) = sch {
+                                for prop in enumeration_order(props) {
+                                    let prop_sch = &props[prop];
+                                    child_frames.push(WalkFrame {
+                                        action: WalkAction::Enter,
+                                        schema: prop_sch,
+                                        json_ptr: format!(
+                                            "{}/{key}/{}",
+                                            frame.json_ptr,
+                                            escape_json_ptr(prop)
+                                        ),
+                                        parent_json_ptr: Some(frame.json_ptr.clone()),
+                                        parent_keyword: Some(key),
+                                        parent_schema: Some(frame.schema),
+                                        key_index: Some(KeyIndex::Key(prop.clone())),
+                                    });
+                                }
+                            }
+                        }
+                        _ if keywords::is_keyword(key)
+                            || (opts.all_keys && !keywords::is_skip_keyword(key)) =>
+                        {
+                            child_frames.push(WalkFrame {
+                                action: WalkAction::Enter,
+                                schema: sch,
+                                json_ptr: format!("{}/{}", frame.json_ptr, escape_json_ptr(key)),
+                                parent_json_ptr: Some(frame.json_ptr.clone()),
+                                parent_keyword: Some(key),
+                                parent_schema: Some(frame.schema),
+                                key_index: None,
+                            });
+                        }
+                        _ => {}
                     }
                 }
+
+                frame.action = WalkAction::Exit;
+                stack.push(frame);
+                stack.extend(child_frames.into_iter().rev());
             }
-            _ if keywords::is_keyword(key)
-                || (opts.all_keys && !keywords::is_skip_keyword(key)) =>
-            {
-                let child_ptr = format!("{json_ptr}/{}", escape_json_ptr(key));
-                walk(
-                    opts,
-                    pre,
-                    post,
-                    sch,
-                    &child_ptr,
-                    root_schema,
-                    Some(json_ptr),
-                    Some(key),
-                    Some(schema),
-                    None,
-                );
-            }
-            _ => {}
+            WalkAction::Exit => post(&ctx),
         }
     }
+}
 
-    post(&ctx);
+#[derive(Clone, Copy)]
+enum WalkAction {
+    Enter,
+    Exit,
+}
+
+struct WalkFrame<'a> {
+    action: WalkAction,
+    schema: &'a Value,
+    json_ptr: String,
+    parent_json_ptr: Option<String>,
+    parent_keyword: Option<&'a str>,
+    parent_schema: Option<&'a Value>,
+    key_index: Option<KeyIndex>,
+}
+
+impl WalkFrame<'_> {
+    fn context<'a>(&'a self, root_schema: &'a Value) -> Context<'a> {
+        Context {
+            schema: self.schema,
+            json_ptr: &self.json_ptr,
+            root_schema,
+            parent_json_ptr: self.parent_json_ptr.as_deref(),
+            parent_keyword: self.parent_keyword,
+            parent_schema: self.parent_schema,
+            key_index: self.key_index.clone(),
+        }
+    }
 }
 
 /// Order property names the way a JavaScript `for..in` loop enumerates object
@@ -370,5 +403,23 @@ mod tests {
             .clone();
         let order: Vec<&str> = enumeration_order(&map).iter().map(|k| k.as_str()).collect();
         assert_eq!(order, vec!["1", "2", "10", "x", "01"]);
+    }
+
+    fn nested_not(depth: usize) -> Value {
+        let mut schema = Value::Object(serde_json::Map::new());
+        for _ in 0..depth {
+            let mut map = serde_json::Map::new();
+            map.insert("not".to_owned(), schema);
+            schema = Value::Object(map);
+        }
+        schema
+    }
+
+    #[test]
+    fn deeply_nested_not_does_not_overflow_stack() {
+        let schema = Box::leak(Box::new(nested_not(20_000)));
+        let mut count = 0;
+        traverse(schema, Options::default(), |_| count += 1);
+        assert_eq!(count, 20_001);
     }
 }
