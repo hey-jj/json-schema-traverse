@@ -1,6 +1,6 @@
 [package]
 name = "json-schema-traverse"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "recursively walk a JSON Schema, invoking pre/post callbacks on each subschema"
 license = "MIT"
