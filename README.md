@@ -2,11 +2,11 @@
 
 Recursively walk a JSON Schema and call a function on every subschema.
 
-The traversal visits each object subschema, including the root, in pre-order.
-It can also call a second function in post-order. References (`$ref`) are not
-resolved. They are passed to the callback as plain objects. Only object
-subschemas are visited. Boolean schemas, arrays, numbers, strings, and null are
-never passed to a callback.
+The traversal visits each object subschema, including the root, in pre-order,
+and can also call a second function in post-order. It passes `$ref` references
+to the callback as plain objects without resolving them. Only object subschemas
+are visited: boolean schemas, arrays, numbers, strings, and null never reach a
+callback.
 
 ## Installation
 
